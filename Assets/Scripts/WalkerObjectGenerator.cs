@@ -16,14 +16,17 @@ public class WalkerObjectGenerator : MonoBehaviour
     public Grid[,] gridHandler;
     public List<WalkerObject> Walkers;
     public Tilemap tileMap;
-    public Tile floor;
-    public Tile wall;
+    public List<Tile> floors;
+    public List<Tile> walls;
     public int MapWidth = 30;
     public int MapHeight = 30;
     public int maxWalkers = 10;
     public int TileCount = default;
     public float FillPercentage = 0.4f;
     public float WaitTime = 0.05f;
+
+    [Header("Tree Options")]
+    public GameObject tree;
 
     private void Start()
     {
@@ -38,7 +41,7 @@ public class WalkerObjectGenerator : MonoBehaviour
         {
             for (int y = 0; y < gridHandler.GetLength(1); y++)
             {
-                gridHandler[x,y] = Grid.EMPTY;
+                gridHandler[x, y] = Grid.EMPTY;
             }
         }
 
@@ -46,14 +49,42 @@ public class WalkerObjectGenerator : MonoBehaviour
 
         Vector3Int TileCenter = new Vector3Int(gridHandler.GetLength(0) / 2, gridHandler.GetLength(1) / 2, 0);
 
-        WalkerObject curWalker = new WalkerObject(new Vector2(TileCenter.x, TileCenter.y), GetDirection(),0.5f);
+        WalkerObject curWalker = new WalkerObject(new Vector2(TileCenter.x, TileCenter.y), GetDirection(), 0.5f);
         gridHandler[TileCenter.x, TileCenter.y] = Grid.FLOOR;
-        tileMap.SetTile(TileCenter, floor);
+        SetTile(TileCenter, floors);
         Walkers.Add(curWalker);
 
         TileCount++;
 
         StartCoroutine(CreateFloor());
+        
+    }
+
+    private IEnumerator CreateObject()
+    {
+        for (int x = 0; x < gridHandler.GetLength(0); x++)
+        {
+            for (int y = 0; y < gridHandler.GetLength(1); y++)
+            {
+                if (gridHandler[x, y] == Grid.FLOOR)
+                {
+                    
+                    if (UnityEngine.Random.Range(0, 20) == 1)
+                    {
+                        Instantiate(tree, new Vector3(x, y, 0), Quaternion.identity);
+                        yield return new WaitForSeconds(WaitTime);
+                    }
+                    
+                }
+            }
+        }
+    }
+
+    //Randomly sets the tiles from list
+    private void SetTile(Vector3Int TileCenter, List<Tile> tileList)
+    {
+        int index = UnityEngine.Random.Range(0, tileList.Count);
+        tileMap.SetTile(TileCenter, tileList[index]);
     }
 
     Vector2 GetDirection()
@@ -86,7 +117,7 @@ public class WalkerObjectGenerator : MonoBehaviour
 
                 if (gridHandler[curPos.x,curPos.y] != Grid.FLOOR)
                 {
-                    tileMap.SetTile(curPos, floor);
+                    SetTile(curPos, floors);
                     TileCount++;
                     gridHandler[curPos.x, curPos.y] = Grid.FLOOR;
                     hasCreatedFloor = true;
@@ -101,42 +132,43 @@ public class WalkerObjectGenerator : MonoBehaviour
             if (hasCreatedFloor)
             {
                 yield return new WaitForSeconds(WaitTime);
-            }
-
-            StartCoroutine(CreateWalls());
+            }           
 
         }
+        StartCoroutine(CreateWalls());
+        StartCoroutine(CreateObject());
     }
     private IEnumerator CreateWalls()
     {
-        for (int x = 0; x < gridHandler.GetLength(0) - 1; x++)
+        for (int x = 0; x < gridHandler.GetLength(0) -1 ; x++)
         {
-            for (int y = 0; y < gridHandler.GetLength(1) - 1; y++)
+            for (int y = 0; y < gridHandler.GetLength(1) -1 ; y++)
             {
+                // because of the if statement and clamping the floor grid, there can not be ArrayIndexOutOfBounds error.
                 if (gridHandler[x,y] == Grid.FLOOR)
                 {
                     bool hasCreatedWall = false;
-                    if (gridHandler[x+1, y] == Grid.EMPTY)
+                    if (gridHandler[x + 1, y] == Grid.EMPTY)
                     {
-                        tileMap.SetTile(new Vector3Int(x + 1, y, 0), wall);
+                        SetTile(new Vector3Int(x + 1, y, 0), walls);
                         gridHandler[x + 1, y] = Grid.WALL;
                         hasCreatedWall = true;
                     }
                     if (gridHandler[x - 1, y] == Grid.EMPTY)
                     {
-                        tileMap.SetTile(new Vector3Int(x + 1, y, 0), wall);
+                        SetTile(new Vector3Int(x - 1, y, 0), walls);
                         gridHandler[x - 1, y] = Grid.WALL;
                         hasCreatedWall = true;
                     }
                     if (gridHandler[x , y + 1] == Grid.EMPTY)
                     {
-                        tileMap.SetTile(new Vector3Int(x + 1, y, 0), wall);
+                        SetTile(new Vector3Int(x, y + 1, 0), walls);
                         gridHandler[x, y + 1] = Grid.WALL;
                         hasCreatedWall = true;
                     }
                     if (gridHandler[x, y - 1] == Grid.EMPTY)
                     {
-                        tileMap.SetTile(new Vector3Int(x + 1, y, 0), wall);
+                        SetTile(new Vector3Int(x, y - 1, 0), walls);
                         gridHandler[x, y - 1] = Grid.WALL;
                         hasCreatedWall = true;
                     }
