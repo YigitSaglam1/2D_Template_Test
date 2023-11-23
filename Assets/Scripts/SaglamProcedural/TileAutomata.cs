@@ -133,20 +133,20 @@ public class TileAutomata : MonoBehaviour
     void Update()
     {
 
-        if (Input.GetKeyDown(KeyCode.C))
+        if (Input.GetKey(KeyCode.LeftShift) && Input.GetKeyDown(KeyCode.KeypadPlus))
         {
             doSim(numR);
         }
 
 
-        if (Input.GetKeyDown(KeyCode.D))
+        if (Input.GetKey(KeyCode.LeftShift) && Input.GetKeyDown(KeyCode.KeypadMinus))
         {
             clearMap(true);
         }
 
 
 
-        if (Input.GetKeyDown(KeyCode.S))
+        if (Input.GetKey(KeyCode.LeftShift) && Input.GetKeyDown(KeyCode.KeypadEnter))
         {
             SaveAssetMap();
             count++;
