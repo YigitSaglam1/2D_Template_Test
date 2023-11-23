@@ -15,7 +15,8 @@ public class WalkerObjectGenerator : MonoBehaviour
 
     public Grid[,] gridHandler;
     public List<WalkerObject> Walkers;
-    public Tilemap tileMap;
+    public Tilemap FloorMap;
+    public Tilemap OceanMap;
     public List<Tile> floors;
     public List<Tile> walls;
     public int MapWidth = 30;
@@ -84,7 +85,12 @@ public class WalkerObjectGenerator : MonoBehaviour
     private void SetTile(Vector3Int TileCenter, List<Tile> tileList)
     {
         int index = UnityEngine.Random.Range(0, tileList.Count);
-        tileMap.SetTile(TileCenter, tileList[index]);
+        FloorMap.SetTile(TileCenter, tileList[index]);
+    }
+    private void SetTileOcean(Vector3Int TileCenter, List<Tile> tileList)
+    {
+        int index = UnityEngine.Random.Range(0, tileList.Count);
+        OceanMap.SetTile(TileCenter, tileList[index]);
     }
 
     Vector2 GetDirection()
@@ -150,28 +156,29 @@ public class WalkerObjectGenerator : MonoBehaviour
                     bool hasCreatedWall = false;
                     if (gridHandler[x + 1, y] == Grid.EMPTY)
                     {
-                        SetTile(new Vector3Int(x + 1, y, 0), walls);
+                        SetTileOcean(new Vector3Int(x + 1, y, 0), walls);
                         gridHandler[x + 1, y] = Grid.WALL;
                         hasCreatedWall = true;
                     }
                     if (gridHandler[x - 1, y] == Grid.EMPTY)
                     {
-                        SetTile(new Vector3Int(x - 1, y, 0), walls);
+                        SetTileOcean(new Vector3Int(x - 1, y, 0), walls);
                         gridHandler[x - 1, y] = Grid.WALL;
                         hasCreatedWall = true;
                     }
                     if (gridHandler[x , y + 1] == Grid.EMPTY)
                     {
-                        SetTile(new Vector3Int(x, y + 1, 0), walls);
+                        SetTileOcean(new Vector3Int(x, y + 1, 0), walls);
                         gridHandler[x, y + 1] = Grid.WALL;
                         hasCreatedWall = true;
                     }
                     if (gridHandler[x, y - 1] == Grid.EMPTY)
                     {
-                        SetTile(new Vector3Int(x, y - 1, 0), walls);
+                        SetTileOcean(new Vector3Int(x, y - 1, 0), walls);
                         gridHandler[x, y - 1] = Grid.WALL;
                         hasCreatedWall = true;
                     }
+                    
 
                     if (hasCreatedWall)
                     {
