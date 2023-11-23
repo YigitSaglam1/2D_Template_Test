@@ -330,13 +330,21 @@ MonoBehaviour:
   tileMap: {fileID: 460656521}
   floors:
   - {fileID: 11400000, guid: 1112d11845d136f479eefe9822df17d6, type: 2}
+  - {fileID: 11400000, guid: 8445c7fbbc3981e47848f40b4d8f07f6, type: 2}
+  - {fileID: 11400000, guid: 5e378de8db45039488ad05b331993c7c, type: 2}
+  - {fileID: 11400000, guid: 8cfd6930f00d2ad4986a91404b37933d, type: 2}
+  - {fileID: 11400000, guid: c91a5b946cb1f644c94f2e563b2d2b75, type: 2}
   walls:
   - {fileID: 11400000, guid: 7928e96168b01ca4d8704619044bdbe4, type: 2}
-  MapWidth: 30
-  MapHeight: 30
+  - {fileID: 11400000, guid: 1e4022360924f094ab6344fcd1bb1497, type: 2}
+  - {fileID: 11400000, guid: 3f81341a618c1e54a8056045a6204fd0, type: 2}
+  - {fileID: 11400000, guid: b10efc91ba4b24b40bd00ac823969bdc, type: 2}
+  - {fileID: 11400000, guid: 6013984e21fd1a648904a8808e14c07f, type: 2}
+  MapWidth: 100
+  MapHeight: 100
   maxWalkers: 10
   TileCount: 0
-  FillPercentage: 0.4
+  FillPercentage: 0.15
   WaitTime: 0.05
   tree: {fileID: 7153693653487441336, guid: 19ba7c4bb7be34d43be7acdc113faf1c, type: 3}
 --- !u!1 &694906307
