@@ -212,7 +212,7 @@ MonoBehaviour:
   iniChance: 25
   birthLimit: 3
   deathLimit: 2
-  numR: 1
+  numR: 5
   tmpSize: {x: 270, y: 270, z: 0}
   topMap: {fileID: 1509204057}
   botMap: {fileID: 1484969901}
