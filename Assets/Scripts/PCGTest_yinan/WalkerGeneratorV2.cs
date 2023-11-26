@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Tilemaps;
-
+using Dropping2D;
 public class WalkerGeneratorV2 : MonoBehaviour
 {
     public enum Grid
@@ -12,6 +12,7 @@ public class WalkerGeneratorV2 : MonoBehaviour
         EMPTY,
         MOUNTAIN
     }
+
 
     public int MapWeight = 100;
     public int MapHeight = 200;
@@ -27,6 +28,7 @@ public class WalkerGeneratorV2 : MonoBehaviour
     private void Start()
     {
         Initialize();
+
     }
     public void Initialize()
     {
