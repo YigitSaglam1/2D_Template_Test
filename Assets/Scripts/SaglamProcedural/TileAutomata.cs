@@ -169,15 +169,15 @@ public class TileAutomata : MonoBehaviour
 
         if (mf)
         {
-            var savePath = "Assets/Maps/" + saveName + ".prefab";
-            if (PrefabUtility.CreatePrefab(savePath, mf))
-            {
-                EditorUtility.DisplayDialog("Tilemap saved", "Your Tilemap was saved under" + savePath, "Continue");
-            }
-            else
-            {
-                EditorUtility.DisplayDialog("Tilemap NOT saved", "An ERROR occured while trying to saveTilemap under" + savePath, "Continue");
-            }
+            //var savePath = "Assets/Maps/" + saveName + ".prefab";
+            //if (PrefabUtility.CreatePrefab(savePath, mf))
+            //{
+            //    EditorUtility.DisplayDialog("Tilemap saved", "Your Tilemap was saved under" + savePath, "Continue");
+            //}
+            //else
+            //{
+            //    EditorUtility.DisplayDialog("Tilemap NOT saved", "An ERROR occured while trying to saveTilemap under" + savePath, "Continue");
+            //}
 
 
         }
